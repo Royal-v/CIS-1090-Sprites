@@ -1,3 +1,8 @@
+import spaceship from "./games/homeworkfolder/spaceship.js";
+
+
+let spaceshipoject = spaceship;
+
 //You might have some game state so you can keep track of
 //what is happening:
 let score;  //The players score
@@ -18,6 +23,9 @@ function distance(a, b) {
 function setup(sprites) {
     score = 0;      //set score to zero
     alive = true;   //Set player to alive
+    spaceshipoject.setimage("🛸");
+    spaceshipoject.setup(150,150);
+
 
     //Sprite "Images" are just characters,
     //But you can use emojis!
@@ -48,6 +56,7 @@ function setup(sprites) {
  * @param left      "
  * @param right     "
  * @param space     Is spacebar pressed?
+ * @param mousemove
  * @returns The current score
  */
 function frame(sprites, t, dt, up, down, left, right, space) {
@@ -56,7 +65,7 @@ function frame(sprites, t, dt, up, down, left, right, space) {
     const truck = sprites[0]; //Easier to remember
     const house = sprites[1]; //Easier to remember
     const fire = sprites[2]; //Easier to remember
-
+spaceship.movment();
     //Move the fire engine
     if (up) {
         //Speed is in pixels per second, and
@@ -93,6 +102,36 @@ function frame(sprites, t, dt, up, down, left, right, space) {
     return score;
 };
 
+class cargo{
+    constructor(startx, starty, image, name){
+        this.startx = startx;
+        this.starty = starty;
+        this.image = image;
+        this.name = name;
+        this.x = x;
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+document.addEventListener('mousemove',()=>{
+    let mousex = Event.clientx;
+    let mousey = Event.clienty;
+})
+
 export default {
     name: "Homework",
     instructions: "Write your instructions here",
@@ -103,4 +142,5 @@ export default {
     },
     frame,
     setup,
+    
 };
