@@ -1,6 +1,6 @@
 let image;
-let x;
-let y;
+let x = 0;
+let y = 0;
 let accrelation = 5;
 let turnrate = 15;
 let facevelocity;
@@ -52,4 +52,4 @@ else{
 }
 
 let information = [x,y,image]
-export {information,movement,start,setimage}
+export default {information,movement,start,setimage}

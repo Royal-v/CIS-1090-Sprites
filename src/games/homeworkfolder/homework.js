@@ -1,4 +1,4 @@
-import spaceship from "./games/homeworkfolder/spaceship.js";
+import spaceship from "./spaceship.js";
 
 
 let spaceshipoject = spaceship;
@@ -24,7 +24,7 @@ function setup(sprites) {
     score = 0;      //set score to zero
     alive = true;   //Set player to alive
     spaceshipoject.setimage("🛸");
-    spaceshipoject.setup(150,150);
+    spaceshipoject.start(150,150);
 
 
     //Sprite "Images" are just characters,
@@ -37,15 +37,17 @@ function setup(sprites) {
 
     //Putting two sprites together you
     //can make more complicated things.
-    sprites[1].image = "🏠"; //A fire engine
+    sprites[1].image = "🛸"; //A fire engine
     sprites[1].x = 300;
     sprites[1].y = 100;
     sprites[2].image = "🔥"; //A fire engine
     sprites[2].x = 300;
     sprites[2].y = 120;
-
+    sprites[3].image = "🛸";
+    sprites[3].x = 500;
+    sprites[3].y = 500;
 }
-
+console.log("🛸")
 /**
  * This function is called every frame
  * @param sprites   Array of sprite objects
@@ -65,7 +67,8 @@ function frame(sprites, t, dt, up, down, left, right, space) {
     const truck = sprites[0]; //Easier to remember
     const house = sprites[1]; //Easier to remember
     const fire = sprites[2]; //Easier to remember
-spaceship.movment();
+    const spaceship = sprites[3];
+//spaceshipproject.movement;
     //Move the fire engine
     if (up) {
         //Speed is in pixels per second, and
@@ -127,10 +130,7 @@ class cargo{
 
 
 
-document.addEventListener('mousemove',()=>{
-    let mousex = Event.clientx;
-    let mousey = Event.clienty;
-})
+
 
 export default {
     name: "Homework",
