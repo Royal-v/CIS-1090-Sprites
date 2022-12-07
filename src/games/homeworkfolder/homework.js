@@ -1,7 +1,7 @@
-import spaceship from "./spaceship.js";
 
 
-let spaceshipoject = spaceship;
+let accrelation = 5;
+
 
 //You might have some game state so you can keep track of
 //what is happening:
@@ -10,7 +10,47 @@ let alive;  //is the
 
 //You might have some constants that you use
 const speed = 300;  //In pixels per second
-
+function angledistence(){
+    return Math.round(accrelation*(Math.sin(45)/Math.sin(90)));
+}
+console.log(angledistence())
+function movement(up,down,left,right,sprites){
+    if(up){
+        if(left){
+            sprites[0].x = sprites[0].x-angledistence();
+            sprites[0].y =  sprites[0].y+angledistence();
+        }
+        else if(right){
+            sprites[0].x = sprites[0].x+angledistence();
+            sprites[0].y = sprites[0].y+angledistence();        }
+        else{
+            sprites[0].y =  sprites[0].y+accrelation
+        }
+         
+    }
+    else if(down){
+        if(left){
+            sprites[0].x = sprites[0].x-angledistence();
+            sprites[0].y =  sprites[0].y-angledistence();
+        }
+        else if(right){
+            sprites[0].x = sprites[0].x+angledistence();
+            sprites[0].y =  sprites[0].y-angledistence();
+        }
+        else{
+            sprites[0].y =  sprites[0].y-accrelation
+        }
+    }
+    else if(left){
+        sprites[0].x= sprites[0].x - accrelation;
+    }
+    else if(right){
+        sprites[0].x = sprites[0].x+accrelation;
+    }
+    else{
+    
+    }
+    }
 //This is a helper function to compute the distance
 //between two sprites
 function distance(a, b) {
@@ -18,34 +58,45 @@ function distance(a, b) {
     let dy = a.y - b.y;
     return Math.sqrt(dx * dx + dy * dy);
 }
-
+let mousex;
+let mousey;
+let mousedclicked;
 //This setup function is called once when the game starts
 function setup(sprites) {
     score = 0;      //set score to zero
     alive = true;   //Set player to alive
-    spaceshipoject.setimage("🛸");
-    spaceshipoject.start(150,150);
 
 
+    document.addEventListener("mousemove",(event)=>{ 
+        let mousex = event.clientX;
+        let mousey = event.clientY;
+        console.log([mousex,mousey])
+    })
+    document.addEventListener("onclick",(event)=>{
+        let mousedclicked = event.onclick; 
+    }
+    
+    )
     //Sprite "Images" are just characters,
     //But you can use emojis!
     // https://emojis.wiki/
 
-    sprites[0].image = "🚒"; //A fire engine
-    sprites[0].x = 100;
-    sprites[0].y = 100;
 
-    //Putting two sprites together you
-    //can make more complicated things.
-    sprites[1].image = "🛸"; //A fire engine
-    sprites[1].x = 300;
-    sprites[1].y = 100;
-    sprites[2].image = "🔥"; //A fire engine
-    sprites[2].x = 300;
-    sprites[2].y = 120;
-    sprites[3].image = "🛸";
-    sprites[3].x = 500;
-    sprites[3].y = 500;
+    sprites[0].image = "🛸" ;
+    sprites[0].x =  200;
+    sprites[0].y = 200;
+
+    sprites[1].image = "🛰️";
+    sprites[1].x = 0;
+    sprites[1].y = 200;
+
+    sprites[2].image = "📦";
+    sprites[2].x = 200;
+    sprites[2].y = 150;
+
+    sprites[3].image = "🔵"
+    sprites[3].x = 50;
+    sprites[3].x = 50;
 }
 console.log("🛸")
 /**
@@ -62,15 +113,22 @@ console.log("🛸")
  * @returns The current score
  */
 function frame(sprites, t, dt, up, down, left, right, space) {
+if(mousedclicked){
+    alert("it workerd")
+}
+
+   
+   
+   
     //Keep references to the sprites in some variables with
     //better names:
-    const truck = sprites[0]; //Easier to remember
-    const house = sprites[1]; //Easier to remember
-    const fire = sprites[2]; //Easier to remember
-    const spaceship = sprites[3];
-//spaceshipproject.movement;
+ //Easier to remember
+    const spaceship = sprites[0];
+    //spaceshipoject.movement(up,down,left,right);
     //Move the fire engine
-    if (up) {
+   movement(up,down, left, right, sprites);
+    
+   // if (up) {
         //Speed is in pixels per second, and
         //dt is the number of seconds that have
         //passed since the last frame.
@@ -78,7 +136,7 @@ function frame(sprites, t, dt, up, down, left, right, space) {
         //Multiply them together so that the
         //truck moves at the same speed if the
         //computer is fast or slow
-        truck.y += speed * dt;
+ /*       truck.y += speed * dt;
     } 
     if (down) {
         truck.y -= speed * dt;
@@ -101,20 +159,17 @@ function frame(sprites, t, dt, up, down, left, right, space) {
 
     //A very simple repeating animation
     sprites[2].y += Math.sin(t)/10;
+*/
+
+
+
+
 
     return score;
+
 };
 
-class cargo{
-    constructor(startx, starty, image, name){
-        this.startx = startx;
-        this.starty = starty;
-        this.image = image;
-        this.name = name;
-        this.x = x;
-    }
 
-}
 
 
 
@@ -133,7 +188,7 @@ class cargo{
 
 
 export default {
-    name: "Homework",
+    name: "Homeworxxxk",
     instructions: "Write your instructions here",
     icon: "📝", //Choose an emoji icon
     background: {

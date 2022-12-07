@@ -7,6 +7,9 @@ let facevelocity;
 let xvelocity;
 let yvelocity;
 let angle = 0;
+function angledistence(){
+    return Math.round(accrelation*(Math.sin(45)/Math.sin(90)));
+}
 function setimage(youwantimage){
 image = youwantimage
 }
@@ -15,41 +18,41 @@ function start(startx,starty){
     x = startx;
     y = starty;
 }
-function turn(turnto){
-    angle = turnto == left? angle-turnrate:angle+turnrate;
-}
-function movemath(movement){
-facevelocity = accrelation + facevelocity
-    let angleb = angle+90-180
-    xvelocity = movement == up?facevelocity*Math.sin(angleb)*(1/Math.sin(90)):-1*facevelocity*Math.sin(angleb)*(1/Math.sin(90));
-    yvelocity = movement == up?facevelocity*Math.sin(angle)*(1/Math.sin(90)): -1*facevelocity*Math.sin(angle)*(1/Math.sin(90));
-    x = x + xvelocity;
-    y = y+ yvelocity;
-}
 function movement(up,down,left,right){
-if(up == true){
-movemath(up);
-if(left){
-    turn(left);
+if(up){
+    if(left){
+        x = x+angledistence;
+        y = y+angledistence
+    }
+    else if(right){
+        x = x-angledistence;
+        y = y+angledistence;
+    }
+    else{
+        x = x+accrelation
+    }
+     
 }
-if(right){
-    turn(right)
-}
-}
-else if(down == true){
-    movemath(down);
-if(left){
-    turn(left);
-}
-if(right){
-    turn(right)
-}
+else if(down){
+    if(left){
+        x = x+angledistence;
+        y = y-angledistence
+    }
+    else if(right){
+        x = x-angledistence;
+        y = y-angledistence;
+    }
+    else{
+        x = y-accrelation
+    }
 }
 else{
-    xvelocity = 0
-    yvelocity = 0 
+
 }
 }
 
-let information = [x,y,image]
-export default {information,movement,start,setimage}
+
+
+
+
+export default {movement,start,setimage, x, y, image}

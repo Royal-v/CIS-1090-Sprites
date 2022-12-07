@@ -1,4 +1,4 @@
-import homework from "./games/homeworkFolder/homework.js";
+import homework from "./games/homeworkfolder/homework.js";
 import hunter from "./games/hunter.js";
 import badger from "./games/badger.js";
 
