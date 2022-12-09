@@ -11,7 +11,7 @@ let alive;  //is the
 //You might have some constants that you use
 const speed = 300;  //In pixels per second
 function angledistence(){
-    return Math.round(accrelation*(Math.sin(45)/Math.sin(90)));
+    return Math.floor(accrelation*(Math.sin(45)/Math.sin(90)));
 }
 console.log(angledistence())
 function movement(up,down,left,right,sprites){
@@ -72,11 +72,9 @@ function setup(sprites) {
         let mousey = event.clientY;
         console.log([mousex,mousey])
     })
-    document.addEventListener("onclick",(event)=>{
-        let mousedclicked = event.onclick; 
-    }
+    document.getElementById('btn').addEventListener("mouse down", click);
     
-    )
+    
     //Sprite "Images" are just characters,
     //But you can use emojis!
     // https://emojis.wiki/
@@ -124,10 +122,16 @@ if(mousedclicked){
     //better names:
  //Easier to remember
     const spaceship = sprites[0];
+    const cargo = sprites[2];
+    const spacestation = sprites[3];
     //spaceshipoject.movement(up,down,left,right);
     //Move the fire engine
    movement(up,down, left, right, sprites);
-    
+    if (distance(cargo,spacestation) <= 50){
+        cargo.x = (50+Math.random*100+Math.random*100+Math.random*100+Math.random*100)%600
+        cargo.y = (50+Math.random*100+Math.random*100+Math.random*100+Math.random*100)%600
+        score = score + 100;
+    }
    // if (up) {
         //Speed is in pixels per second, and
         //dt is the number of seconds that have
@@ -188,7 +192,7 @@ if(mousedclicked){
 
 
 export default {
-    name: "Homeworxxxk",
+    name: "space game",
     instructions: "Write your instructions here",
     icon: "📝", //Choose an emoji icon
     background: {
