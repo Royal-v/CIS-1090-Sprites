@@ -1,51 +1,55 @@
 
 
-let accrelation = 5;
+
 
 
 //You might have some game state so you can keep track of
 //what is happening:
 let score;  //The players score
 let alive;  //is the 
-
+let trackingbeamstick = false;
+let trackingbeammoving;
+let truey
+let truex
+let trackingbeamtime;
 //You might have some constants that you use
 const speed = 300;  //In pixels per second
-function angledistence(){
+function angledistence(accrelation){
     return Math.floor(accrelation*(Math.sin(45)/Math.sin(90)));
 }
 console.log(angledistence())
-function movement(up,down,left,right,sprites){
+function movement(up,down,left,right,sprites,whatone, speed){
     if(up){
         if(left){
-            sprites[0].x = sprites[0].x-angledistence();
-            sprites[0].y =  sprites[0].y+angledistence();
+            sprites[whatone].x = sprites[whatone].x-angledistence(speed);
+            sprites[whatone].y =  sprites[whatone].y+angledistence(speed);
         }
         else if(right){
-            sprites[0].x = sprites[0].x+angledistence();
-            sprites[0].y = sprites[0].y+angledistence();        }
+            sprites[whatone].x = sprites[whatone].x+angledistence(speed);
+            sprites[whatone].y = sprites[whatone].y+angledistence(speed);        }
         else{
-            sprites[0].y =  sprites[0].y+accrelation
+            sprites[whatone].y =  sprites[whatone].y+speed
         }
-         
+     
     }
     else if(down){
         if(left){
-            sprites[0].x = sprites[0].x-angledistence();
-            sprites[0].y =  sprites[0].y-angledistence();
+            sprites[whatone].x = sprites[whatone].x-angledistence(speed);
+            sprites[whatone].y =  sprites[whatone].y-angledistence(speed);
         }
         else if(right){
-            sprites[0].x = sprites[0].x+angledistence();
-            sprites[0].y =  sprites[0].y-angledistence();
+            sprites[whatone].x = sprites[whatone].x+angledistence(speed);
+            sprites[whatone].y =  sprites[whatone].y-angledistence(speed);
         }
         else{
-            sprites[0].y =  sprites[0].y-accrelation
+            sprites[whatone].y =  sprites[whatone].y-speed
         }
     }
     else if(left){
-        sprites[0].x= sprites[0].x - accrelation;
+        sprites[whatone].x= sprites[whatone].x - speed;
     }
     else if(right){
-        sprites[0].x = sprites[0].x+accrelation;
+        sprites[whatone].x = sprites[whatone].x+speed;
     }
     else{
     
@@ -68,12 +72,17 @@ function setup(sprites) {
 
 
     document.addEventListener("mousemove",(event)=>{ 
-        let mousex = event.clientX;
-        let mousey = event.clientY;
-        console.log([mousex,mousey])
+         mousex = event.clientX-60;
+         mousey = event.clientY-140;
+       
     })
-    document.getElementById('btn').addEventListener("mouse down", click);
     
+    window.addEventListener('click', (event) => {
+        if(event.button == 0){
+            mousedclicked = true;
+        }
+
+    })
     
     //Sprite "Images" are just characters,
     //But you can use emojis!
@@ -88,13 +97,17 @@ function setup(sprites) {
     sprites[1].x = 0;
     sprites[1].y = 200;
 
-    sprites[2].image = "📦";
-    sprites[2].x = 200;
-    sprites[2].y = 150;
+    sprites[3].image = "📦";
+    sprites[3].x = 400;
+    sprites[3].y = 400;
 
-    sprites[3].image = "🔵"
-    sprites[3].x = 50;
-    sprites[3].x = 50;
+    sprites[2].image = "🔵"
+    sprites[2].x = 50;
+    sprites[2].x = 50;
+    
+    sprites[4].image = "🚀";
+    sprites[4].x = 300;
+    sprites[4].y = 100;
 }
 console.log("🛸")
 /**
@@ -110,61 +123,74 @@ console.log("🛸")
  * @param mousemove
  * @returns The current score
  */
-function frame(sprites, t, dt, up, down, left, right, space) {
-if(mousedclicked){
-    alert("it workerd")
-}
 
+ 
+function frame(sprites, t, dt, up, down, left, right, space) {
+    const spaceship = sprites[0];
+    const cargo = sprites[3];
+    const spacestation = sprites[1];
+    const trackingbeam = sprites[2];
+    const pirate = sprites[4];
+    movement(up,down, left, right, sprites, 0, 300*dt);
+    trackingbeamtime = trackingbeamtime+1;
+    if(mousedclicked == true){
+        trackingbeamtime = 0
+        console.log("spaceship position",spaceship.x,spaceship.y) 
+        console.log("mouse x and y", mousex, mousey)    
+    trackingbeam.x = spaceship.x;
+    trackingbeam.y = spaceship.y;
+     truex = mousex - spaceship.x;
+     truey =spaceship.y - mousey;
+     console.log("before limit target",truex,truey)
+
+    console.log("after limit target",truex,truey)
+    mousedclicked = false;
+    trackingbeammoving = true;
+}
+if(trackingbeammoving){
+    trackingbeam.x = trackingbeam.x + truex*dt;
+    trackingbeam.y = trackingbeam.y + truey*dt;
+    trackingbeamtime = trackingbeamtime+1;
+if (distance(trackingbeam, cargo) <= 20){
+    trackingbeamstick = true;
+    trackingbeammoving = false; 
+
+} 
+}
+if(  trackingbeamtime >= 90 && trackingbeamstick == false ){
+    trackingbeammoving = false
+    truex = 0;
+    truey = 0;
+    trackingbeam.x = 10000
+    trackingbeam.y = 10000
+} 
+if (trackingbeamstick == true){
+    movement(up,down, left, right, sprites, 2, 300*dt)
+    movement(up,down, left, right, sprites, 3, 300*dt)
+
+
+}// test 
    
-   
-   
+pirate.x = 350+200*Math.cos(t);
+pirate.y = 200+200*Math.sin(t); 
+if( distance(spaceship, pirate) <= 30){
+    score = score -200;
+    spaceship.x = spacestation.x
+    spaceship.y= spacestation.y 
+} 
     //Keep references to the sprites in some variables with
     //better names:
  //Easier to remember
-    const spaceship = sprites[0];
-    const cargo = sprites[2];
-    const spacestation = sprites[3];
+
     //spaceshipoject.movement(up,down,left,right);
     //Move the fire engine
-   movement(up,down, left, right, sprites);
-    if (distance(cargo,spacestation) <= 50){
-        cargo.x = (50+Math.random*100+Math.random*100+Math.random*100+Math.random*100)%600
-        cargo.y = (50+Math.random*100+Math.random*100+Math.random*100+Math.random*100)%600
+   movement(up,down, left, right, sprites, 0, 200*dt);
+    if (distance(cargo,spacestation) <= 10||distance(spaceship,spacestation) <= 10||distance(trackingbeam,spacestation) <= 10 ){
+       if(trackingbeamstick){ cargo.x = (50+Math.random()*100+Math.random()*100+Math.random()*100+Math.random()*100+Math.random()*100+Math.random()*100+Math.random()*100+Math.random()*100)%1200
+        cargo.y = (50+Math.random()*100+Math.random()*100+Math.random()*100+Math.random()*100)%1200
         score = score + 100;
+        trackingbeamstick = false;}
     }
-   // if (up) {
-        //Speed is in pixels per second, and
-        //dt is the number of seconds that have
-        //passed since the last frame.
-        //
-        //Multiply them together so that the
-        //truck moves at the same speed if the
-        //computer is fast or slow
- /*       truck.y += speed * dt;
-    } 
-    if (down) {
-        truck.y -= speed * dt;
-    }
-    if (right) {
-        truck.x += speed * dt;
-        //You can flipH a spright so it is facing
-        //the other direction
-        truck.flipH = true;
-    }
-    if (left) {
-        truck.x -= speed * dt;
-        truck.flipH = false;
-    }
-
-    //If the truck is close to the house
-    if ( distance(truck, house) < 10 ){
-        fire.image = ""; //Make the fire go away
-    }
-
-    //A very simple repeating animation
-    sprites[2].y += Math.sin(t)/10;
-*/
-
 
 
 
