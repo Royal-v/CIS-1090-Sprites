@@ -285,8 +285,9 @@ function frame(sprites, t, dt, up, down, left, right, space) {
 
 
 export default {
-    name: "Alien Cargo Tyocoon Trasnport 2023 Game of the Year Edtion",
-    instructions: "Welcom to Alien Cargo Tyocoon Trasnport 2023 Game of the Year Edition. Where you are alien whose job is to deliver spices. Use your tracking beam to grab the cargo. Then deliver it the station. Be careful, the (corrupted) government and pirates are after you and will take your hard eanered money. Maintain 900 MKs to win the game.Arrows keys to move, mouse 1 to shoot tracking beam, space bar to reset when died",
+    name: "Alien Cargo Tycoon Tansport 2023 Game of the Year Edition",
+    instructions: "Welcome to Alien Cargo Tycoon Tansport 2023 Game of the Year Edition. Where you are a alien whose job is to deliver spices. Use your tracking beam to grab the cargo. Then deliver it the station. Be careful, the (corrupted) government and pirates are after you and will take your hard eanered money. Get 1100 mk to win the game.Arrows keys to move, mouse 1 to shoot tracking beam, space bar to reset when you die: Fun, quick, and the difficult levels make for a 10/10 game - Nikolai Wood:This game was perfectly balance for a noob.  Top notch! 10/10 would let it kick my ass again - Hannah McMillen"
+  ,
     icon: "🛸", //Choose an emoji icon
     background: {
         //You can put CSS here to change your background
