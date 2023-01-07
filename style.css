@@ -57,7 +57,7 @@ body {
   float: left;
   position: relative;
   left: 100px;
-  background: gray;
+  background: rgb(33, 34, 54);
   height: 350px;
   width: 220px;
   transform:
@@ -100,7 +100,7 @@ body {
 
 #shelf > .game {
   cursor: pointer;
-  background: gray;
+  background: rgb(109, 31, 31);
   width: 220px;
   height: 50px;
   border-radius: 15px;
